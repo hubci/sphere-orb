@@ -1,0 +1,87 @@
+version: 2.1
+
+orbs:
+  orb-tools: circleci/orb-tools@10.1
+  sphere: hubci/sphere@<< pipeline.parameters.dev-orb-version >>
+
+parameters:
+  dev-orb-version:
+    type: string
+    default: "dev:int-testing"
+  run-integration-tests:
+    type: boolean
+    default: false
+
+executors:
+  base:
+    docker:
+      - image: cimg/base:2021.10
+
+workflows:
+  # runs on all commits
+  lint_pack-validate_publish-dev:
+    unless: << pipeline.parameters.run-integration-tests >>
+    jobs:
+      - orb-tools/lint
+      - orb-tools/publish-dev:
+          orb-name: "hubci/sphere"
+          orb-path: "orb.yml"
+          alpha-version-ref: "dev:int-testing"
+          attach-workspace: false
+          checkout: true
+          requires:
+            - orb-tools/lint
+          context:
+            - main
+            - orbs
+      - orb-tools/trigger-integration-tests-workflow:
+          name: trigger-integration-dev
+          requires:
+            - orb-tools/publish-dev
+          context:
+            - main
+            - orbs
+  integration-tests_deploy:
+    when: << pipeline.parameters.run-integration-tests >>
+    jobs:
+      - test-standard-commit:
+          name: test-non-pr-commit
+          pr: false
+          executor: base
+          family: "linux"
+      - orb-tools/dev-promote-prod-from-commit-subject:
+          orb-name: hubci/sphere
+          add-pr-comment: true
+          bot-token-variable: GHI_TOKEN
+          bot-user: cpe-bot
+          fail-if-semver-not-indicated: true
+          publish-version-tag: true
+          requires:
+            - test-non-pr-commit
+          filters:
+            branches:
+              only: trunk
+          context:
+            - main
+            - orbs
+
+jobs:
+  test-standard-commit:
+    parameters:
+      executor:
+        type: executor
+        description: |
+          An executor to run the tests with. Everything should be supported but
+          Windows.
+      pr:
+        type: boolean
+        description: |
+          Should be true with faking a PR commit, otherwise false.
+      family:
+        type: string
+        description: "The OS that $OSD_FAMILY should be."
+    executor: << parameters.executor >>
+    steps:
+      - checkout
+      - sphere/init
+      - run: echo $OSD_FAMILY | grep "<< parameters.family >>"
