@@ -1,6 +1,11 @@
-# OS Detect Orb [![CircleCI Build Status](https://circleci.com/gh/CircleCI-Public/os-detect-orb.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/CircleCI-Public/os-detect-orb) [![CircleCI Orb Version](https://img.shields.io/badge/endpoint.svg?url=https://badges.circleci.io/orb/circleci/os-detect)][reg-page] [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/CircleCI-Public/os-detect-orb/master/LICENSE)
+![Sphere Orb Logo](./img/header.png)
+
+# Sphere Orb [![CircleCI Build Status](https://circleci.com/gh/hubci/sphere-orb.svg?style=shield "CircleCI Build Status")](https://app.circleci.com/ppelines/github/hubci/sphere-orb) [![CircleCI Orb Version](https://badges.circleci.com/orbs/hubci/sphere.svg)][reg-page] [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/hubci/sphere-orb/trunk/LICENSE)
+
 
 An orb to make it easy to detect which operating system (OS) and version your orb and/or CircleCI config is running on.
+
+*Notes: This orb is the spiritual successor to the deprecated [OS Detect orb](https://github.com/CircleCI-Archived/os-detect-orb) by CircleCI.*
 
 CircleCI Support
 
@@ -32,14 +37,15 @@ Example use as well as a list of available executors, commands, and jobs are ava
 
 
 ## Contributing
-We welcome [issues](https://github.com/CircleCI-Public/os-detect-orb/issues) to and [pull requests](https://github.com/CircleCI-Public/os-detect-orb/pulls) against this repository!
+I welcome [issues](https://github.com/hubci/sphere-orb/issues) to and [pull requests](https://github.com/hubci/sphere-orb/pulls) against this repository!
 For further questions/comments about this or other orbs, visit the Orb Category of [CircleCI Discuss](https://discuss.circleci.com/c/orbs).
 
 ### Publishing
-
-New versions of this orb are published by pushing a SemVer git tag by the Community & Partner Engineering Team.
+New versions of this orb are published by pushing a SemVer git tag by [Ricardo N Feliciano](https://github.com/FelicianoTech).
 
 ## License
 This project is licensed under the MIT License - read [LICENSE](LICENSE) file for details.
 
-[reg-page]: https://circleci.com/orbs/registry/orb/circleci/orb-detect
+
+
+[reg-page]: https://circleci.com/developer/orbs/orb/hubci/sphere
