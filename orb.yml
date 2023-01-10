@@ -72,15 +72,15 @@ commands:
             echo "export SUDO=$(echo $SUDO)" >> $BASH_ENV
 examples:
   detect-os:
-    description: Here's how you would use the OS Detect Orb.
+    description: Here's how you would use the Sphere Orb.
     usage:
       version: "2.1"
       orbs:
-        detect: circleci/os-detect@0.3.0
+        detect: hubci/sphere@0.2.0
       jobs:
         build:
           docker:
-            - image: cibuilds/base
+            - image: cimg/base:2023.01
           steps:
             - detect/init
             - run: echo "The current operating system is ${OSD_ID}."
