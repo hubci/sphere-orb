@@ -30,6 +30,14 @@ Example use as well as a list of available executors, commands, and jobs are ava
 | $SUDO         | Contains the string "sudo" when the current user is not root and the `sudo` binary is available. Prefix this with your commands.
 
 
+## Compatibility
+
+Version 1 of this orb (as well as the v0 releases) will maintain compatibility with the original OS Detect orb.
+For people transitioning from the old orb to this one, this will make that process easier.
+
+When v2 lands later in 2023, it will be a breaking change that moves this orb to a more advanced and useful future.
+
+
 ## Resources
 
 [CircleCI Orb Registry Page][reg-page] - The official registry page for this orb will include all versions, executors, commands, and have described the jobs.  
