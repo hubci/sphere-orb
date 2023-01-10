@@ -7,7 +7,7 @@ orbs:
 parameters:
   dev-orb-version:
     type: string
-    default: "dev:int-testing"
+    default: "dev:testing"
   run-integration-tests:
     type: boolean
     default: false
@@ -15,7 +15,7 @@ parameters:
 executors:
   base:
     docker:
-      - image: cimg/base:2021.10
+      - image: cimg/base:2023.01
 
 workflows:
   # runs on all commits
@@ -26,21 +26,19 @@ workflows:
       - orb-tools/publish-dev:
           orb-name: "hubci/sphere"
           orb-path: "orb.yml"
-          alpha-version-ref: "dev:int-testing"
+          alpha-version-ref: "dev:testing"
           attach-workspace: false
           checkout: true
           requires:
             - orb-tools/lint
           context:
-            - main
-            - orbs
+            - circleci-ctx
       - orb-tools/trigger-integration-tests-workflow:
           name: trigger-integration-dev
           requires:
             - orb-tools/publish-dev
           context:
-            - main
-            - orbs
+            - circleci-ctx
   integration-tests_deploy:
     when: << pipeline.parameters.run-integration-tests >>
     jobs:
@@ -62,8 +60,7 @@ workflows:
             branches:
               only: trunk
           context:
-            - main
-            - orbs
+            - circleci-ctx
 
 jobs:
   test-standard-commit:
