@@ -1,0 +1,20 @@
+version: 2.1
+
+description: |
+  This orb elevates Circle to the next dimension. It pre-bakes environment
+  variables that assist in OS detection and GitHub tasks.
+
+  This can be useful in order to know which binaries to run, where certain
+  files may be located in the filesystem, whether or not using `sudo` is
+  needed, or to find the base branch in a GitHub PR.
+
+  This orb is especially helpful as a utility in creating your own
+  cross-platform orbs.
+
+  Bash is a requirement. This orb supports the Docker, machine, and macOS
+  executors. This includes Linux, amd64 and arm64 as well as macOS amd65. See
+  repository for full documentation.
+
+display:
+  home_url: "https://github.com/hubci/sphere-orb"
+  source_url: "https://github.com/hubci/sphere-orb"

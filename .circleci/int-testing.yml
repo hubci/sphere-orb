@@ -1,0 +1,34 @@
+version: 2.1
+
+filters: &filters
+  tags:
+    only: /.*/
+
+orbs:
+  orb-tools: circleci/orb-tools@11.6
+  orb: hubci/sphere@dev:<< pipeline.git.revision >>
+
+workflows:
+  int-testing-wf:
+    jobs:
+      - test-standard-commit:
+          name: test-non-pr-commit
+          pr: false
+          family: "linux"
+
+jobs:
+  test-standard-commit:
+    parameters:
+      pr:
+        type: boolean
+        description: |
+          Should be true with faking a PR commit, otherwise false.
+      family:
+        type: string
+        description: "The OS that $OSD_FAMILY should be."
+    docker:
+      - image: cimg/base:2023.01
+    steps:
+      - checkout
+      - orb/init
+      - run: echo $OSD_FAMILY | grep "<< parameters.family >>"
